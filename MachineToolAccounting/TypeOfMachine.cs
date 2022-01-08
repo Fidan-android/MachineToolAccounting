@@ -10,7 +10,7 @@ namespace MachineToolAccounting
 {
     class TypeOfMachine
     {
-        public int Id = 0;
+        public int Id = 1;
         public string Country = "";
         public int YearsOfRelease = 1970;
         public string Mark = "";
@@ -33,11 +33,6 @@ namespace MachineToolAccounting
                 items.Sort((x, y) => x.Id.CompareTo(y.Id));
             }
             return items;
-        }
-
-        public static void UploadTypesOfMachine(List<TypeOfMachine> types, Stream stream)
-        {
-
         }
     }
 }

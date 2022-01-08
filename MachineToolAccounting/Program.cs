@@ -8,7 +8,9 @@ namespace MachineToolAccounting
 {
     class Program
     {
+        //здесь мы с помощью встроенного класса Reflection прочитываем все сведения о проекте и его ресурсах
         private static Assembly assembly = typeof(Program).GetTypeInfo().Assembly;
+        //далее после чтения проекта, мы вытягиваем нужные нам файлы json и создаем Stream для чтения каждого файлика
         private readonly static Stream machineStream = assembly.GetManifestResourceStream("MachineToolAccounting.machine.json");
         private readonly static Stream typeOfMachineStream = assembly.GetManifestResourceStream("MachineToolAccounting.typeOfMachine.json");
         private readonly static Stream repairStream = assembly.GetManifestResourceStream("MachineToolAccounting.repair.json");
@@ -16,11 +18,15 @@ namespace MachineToolAccounting
 
         static void Main(string[] args)
         {
-            var machines = Machine.DownloadMachines(machineStream);
-            var typesOfMachine = TypeOfMachine.DownloadTypesOfMachine(typeOfMachineStream);
-            var repairs = Repair.DownloadRepairs(repairStream);
-            var typesOfRepair = TypeOfRepair.DownloadTypesOfRepair(typeOfRepairStream);
-
+            //с помощью статичных методов из каждого класс(распределили методы по классам соответственно)
+            //передавая наши имеющиеся Stream, нам возвращаются списки объектов, созданные из файлов.
+            //пояснения к методам описано в классе Machine
+            List<Machine> machines = Machine.DownloadMachines(machineStream);
+            List<TypeOfMachine> typesOfMachine = TypeOfMachine.DownloadTypesOfMachine(typeOfMachineStream);
+            List<Repair> repairs = Repair.DownloadRepairs(repairStream);
+            List<TypeOfRepair> typesOfRepair = TypeOfRepair.DownloadTypesOfRepair(typeOfRepairStream);
+            
+            //выводим все имеющиеся данные в табуляционном виде
             Console.WriteLine();
             Console.WriteLine("Типы станков: ");
             Console.WriteLine("ID \t Страна \t Год производства \t Марка");

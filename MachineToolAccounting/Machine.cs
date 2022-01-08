@@ -10,7 +10,6 @@ namespace MachineToolAccounting
 {
     class Machine
     {
-        private int MAX_ID = 0;
         public int Id = 0;
         public int TypeOfMachine = 0;
         public string Name = "";
@@ -23,30 +22,29 @@ namespace MachineToolAccounting
             this.Name = name;
         }
 
-        public Repair MachineForRepair()
-        {
-            Repair repair = new Repair(MAX_ID, this.Id, this.TypeOfMachine, DateTime.Now, "Hurry up, please!");
-            this.NumberOfRepaird++;
-            MAX_ID++;
-
-            return repair;
-        }
-
         public static List<Machine> DownloadMachines(Stream stream)
         {
+            //создаем временный массив
             List<Machine> items = new List<Machine>();
+            //с использованием StreamReader мы читаем содержимое, переданное через Stream
+            //с дефолтным кодированием русских и латинских символов
             using (StreamReader r = new StreamReader(stream, Encoding.Default))
             {
+                //читаем весь файл до конца как строку
                 string json = r.ReadToEnd();
+
+                //с помощью класса JsonConvert из внешней библиотеки Newtonsoft мы читаем 
+                //нашу полученную строку данных из файла как список определенных объектов переданного класса
                 items = JsonConvert.DeserializeObject<List<Machine>>(json);
+                //явление выше называется десериализация Json в объект или в список объектов
+
+                //сортируем полученный список с помощью дополнительного условия CompareTo с переданным
+                //полем, по которому надо сортировать
                 items.Sort((x, y) => x.Id.CompareTo(y.Id));
             }
-            return items;
-        }
 
-        public static void UploadMachines(List<Machine> machines, Stream stream)
-        {
-            
+            //возвращаем временный массив с данными
+            return items;
         }
     }
 }

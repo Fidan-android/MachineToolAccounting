@@ -36,10 +36,5 @@ namespace MachineToolAccounting
             }
             return items;
         }
-
-        public static void UploadRepairs(List<Repair> repairs, Stream stream)
-        {
-
-        }
     }
 }
