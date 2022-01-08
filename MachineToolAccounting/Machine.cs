@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +11,10 @@ namespace MachineToolAccounting
     class Machine
     {
         private int MAX_ID = 0;
-        public int Id { get; } = 0;
+        public int Id = 0;
         public int TypeOfMachine = 0;
-        public string Name { get; } = "";
-        public int NumberOfRepaird { get; private set; } = 0;
+        public string Name = "";
+        public int NumberOfRepaird = 0;
 
         public Machine(int maxId, int type, string name = "")
         {
@@ -23,11 +25,28 @@ namespace MachineToolAccounting
 
         public Repair MachineForRepair()
         {
-            Repair newRepair = new Repair(MAX_ID, this.Id, this.TypeOfMachine, DateTime.Now, "Hurry up, please!");
+            Repair repair = new Repair(MAX_ID, this.Id, this.TypeOfMachine, DateTime.Now, "Hurry up, please!");
             this.NumberOfRepaird++;
             MAX_ID++;
 
-            return newRepair;
+            return repair;
+        }
+
+        public static List<Machine> DownloadMachines(Stream stream)
+        {
+            List<Machine> items = new List<Machine>();
+            using (StreamReader r = new StreamReader(stream, Encoding.Default))
+            {
+                string json = r.ReadToEnd();
+                items = JsonConvert.DeserializeObject<List<Machine>>(json);
+                items.Sort((x, y) => x.Id.CompareTo(y.Id));
+            }
+            return items;
+        }
+
+        public static void UploadMachines(List<Machine> machines, Stream stream)
+        {
+            
         }
     }
 }

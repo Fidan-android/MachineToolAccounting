@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,23 @@ namespace MachineToolAccounting
             this.DurationInHours = duration;
             this.Amount = amount;
             this.Note = note;
+        }
+
+        public static List<TypeOfRepair> DownloadTypesOfRepair(Stream stream)
+        {
+            List<TypeOfRepair> items = new List<TypeOfRepair>();
+            using (StreamReader r = new StreamReader(stream, Encoding.Default))
+            {
+                string json = r.ReadToEnd();
+                items = JsonConvert.DeserializeObject<List<TypeOfRepair>>(json);
+                items.Sort((x, y) => x.Id.CompareTo(y.Id));
+            }
+            return items;
+        }
+
+        public static void UploadTypesOfRepair(List<TypeOfRepair> types, Stream stream)
+        {
+
         }
     }
 }

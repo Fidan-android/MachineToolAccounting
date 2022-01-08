@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 2,
+    "TypeOfMachine": 1,
+    "Name": "ќпера",
+    "NumberOfRepaird": 1
+  },
+  {
+    "Id": 3,
+    "TypeOfMachine": 2,
+    "Name": "√ладь",
+    "NumberOfRepaird": 1
+  },
+  {
+    "Id": 1,
+    "TypeOfMachine": 3,
+    "Name": "÷веты",
+    "NumberOfRepaird": 2
+  }
+]

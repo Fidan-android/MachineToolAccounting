@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 2,
+    "DurationInHours": 1,
+    "Name": "Вторичный",
+    "Amount": "799",
+    "Note" :  ""
+  },
+  {
+    "Id": 3,
+    "DurationInHours": 3,
+    "Name": "Полный",
+    "Amount": "1500",
+    "Note": ""
+  },
+  {
+    "Id": 1,
+    "DurationInHours": 1,
+    "Name": "Первичный",
+    "Amount": "499",
+    "Note": ""
+  }
+]
